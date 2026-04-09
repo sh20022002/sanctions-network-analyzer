@@ -1,0 +1,30 @@
+# Development and security testing dependencies
+# Install with: pip install -r requirements-dev.txt
+
+# Testing
+pytest>=7.4
+pytest-cov>=4.1
+pytest-mock>=3.11
+
+# Security scanning
+bandit>=1.7.5          # Security issue scanner
+safety>=2.3.5          # Dependency vulnerability checker
+pip-audit>=2.6.0       # Audit Python packages for known vulnerabilities
+
+# Code quality
+pylint>=2.17.0         # Code analysis
+black>=23.3.0          # Code formatter
+isort>=5.12.0          # Import sorter
+flake8>=6.0.0          # Style guide enforcement
+mypy>=1.0.0            # Static type checker
+
+# Pre-commit framework
+pre-commit>=3.3.0      # Git pre-commit hooks
+
+# Documentation
+sphinx>=6.2.0          # Documentation generator
+sphinx-rtd-theme>=1.2.0
+
+# Development utilities
+ipython>=8.12.0        # Interactive shell
+ipdb>=0.13.0           # Debugger

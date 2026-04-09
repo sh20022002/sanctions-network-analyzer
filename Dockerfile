@@ -22,16 +22,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
+# Create non-root user for security
+RUN useradd -m -u 1000 analyzer && chown -R analyzer:analyzer /app
+
 # Copy Python packages from builder
-COPY --from=builder /root/.local /root/.local
+COPY --from=builder /root/.local /home/analyzer/.local
 
 # Set PATH to use local pip installs
-ENV PATH=/root/.local/bin:$PATH \
+ENV PATH=/home/analyzer/.local/bin:$PATH \
     PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1
 
-# Copy application code
-COPY . .
+# Copy application code with correct ownership
+COPY --chown=analyzer:analyzer . .
+
+# Switch to non-root user
+USER analyzer
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
