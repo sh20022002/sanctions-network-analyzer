@@ -1,0 +1,8 @@
+requests>=2.31
+networkx>=3.3
+pandas>=2.2
+python-dotenv>=1.0
+neo4j>=5.20          # optional: only needed for --neo4j flag
+beautifulsoup4>=4.12 # optional: Guidestar scraping
+lxml>=5.2            # optional: faster HTML parser for bs4
+tqdm>=4.66
