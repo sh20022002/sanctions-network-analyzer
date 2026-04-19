@@ -16,7 +16,7 @@ from pathlib import Path
 import pandas as pd
 
 from ingestion.opencorporates import bulk_build_profiles
-from ingestion.ofac import get_sanctioned_names
+from ingestion.ofac import get_sanctioned_names, extract_relationships
 from analysis.graph import build_graph, find_shared_officers, find_shell_chains
 from analysis.risk_scoring import score_all_nodes, get_high_risk_nodes
 
@@ -62,7 +62,9 @@ def run(args: argparse.Namespace):
     # ── 2. Fetch OFAC sanctions list ───────────────────────────────────────
     logger.info("Fetching OFAC SDN list…")
     sanctioned = get_sanctioned_names()
+    ofac_relationships = extract_relationships()
     logger.info("Loaded %d sanctioned entity names.", len(sanctioned))
+    logger.info("Extracted %d OFAC relationship entries.", len(ofac_relationships))
 
     # ── 3. Fetch company profiles from OpenCorporates ──────────────────────
     logger.info("Fetching company profiles from OpenCorporates…")
@@ -71,7 +73,7 @@ def run(args: argparse.Namespace):
 
     # ── 4. Build graph ─────────────────────────────────────────────────────
     logger.info("Building network graph…")
-    G = build_graph(profiles, sanctioned_names=sanctioned)
+    G = build_graph(profiles, sanctioned_names=sanctioned, ofac_relationships=ofac_relationships)
     logger.info(
         "Graph: %d nodes, %d edges.", G.number_of_nodes(), G.number_of_edges()
     )

@@ -34,6 +34,7 @@ def build_graph(
     company_profiles: list[CompanyProfile],
     nonprofit_profiles: list[NonprofitProfile] | None = None,
     sanctioned_names: set[str] | None = None,
+    ofac_relationships: dict[str, list[str]] | None = None,
 ) -> nx.DiGraph:
     """
     Construct a directed graph from ingested corporate and nonprofit data.
@@ -42,12 +43,14 @@ def build_graph(
         company_profiles:   List of CompanyProfile objects from OpenCorporates.
         nonprofit_profiles: Optional list of NonprofitProfile from Guidestar.
         sanctioned_names:   Set of normalized OFAC-sanctioned entity names.
+        ofac_relationships: Dict of OFAC entity relationships.
 
     Returns:
         A NetworkX DiGraph ready for analysis.
     """
     G = nx.DiGraph()
     sanctioned = sanctioned_names or set()
+    relationships = ofac_relationships or {}
 
     def _node_id(name: str, jurisdiction: str = "") -> str:
         """Deterministic node identifier."""
@@ -101,6 +104,33 @@ def build_graph(
             foreign_funding_ratio=npo.foreign_funding_ratio,
             sanctioned=_is_sanctioned(npo.name),
         )
+
+    # ── Add OFAC relationships ───────────────────────────────────────────────
+    for entity_name, related_entities in relationships.items():
+        entity_id = _node_id(entity_name)
+        if not G.has_node(entity_id):
+            # Add the entity as a node if it doesn't exist
+            G.add_node(
+                entity_id,
+                label=entity_name,
+                type=NODE_COMPANY,  # Assume company unless we know otherwise
+                jurisdiction="",    # Unknown jurisdiction
+                sanctioned=_is_sanctioned(entity_name),
+            )
+
+        for related in related_entities:
+            related_id = _node_id(related)
+            if not G.has_node(related_id):
+                G.add_node(
+                    related_id,
+                    label=related,
+                    type=NODE_COMPANY,
+                    jurisdiction="",
+                    sanctioned=_is_sanctioned(related),
+                )
+            # Add bidirectional relationship
+            G.add_edge(entity_id, related_id, relation="ofac_linked_to", weight=1.0)
+            G.add_edge(related_id, entity_id, relation="ofac_linked_to", weight=1.0)
 
     return G
 

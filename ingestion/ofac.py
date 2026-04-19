@@ -77,6 +77,45 @@ def get_sanctioned_names(force_download: bool = False) -> set[str]:
     return {_normalize(n) for n in names}
 
 
+def extract_relationships(force_download: bool = False) -> dict[str, list[str]]:
+    """
+    Extract relationships from OFAC SDN remarks field.
+
+    Looks for 'Linked To:' entries and other relationship indicators.
+
+    Returns:
+        Dict mapping normalized entity names to lists of related entity names.
+    """
+    df = download_sdn(force=force_download)
+    relationships = {}
+
+    for _, row in df.iterrows():
+        name = _normalize(str(row["sdn_name"]))
+        remarks = str(row.get("remarks", ""))
+
+        related = []
+
+        # Extract "Linked To:" relationships
+        if "Linked To:" in remarks:
+            linked_section = remarks.split("Linked To:")[1].split(";")[0]
+            linked_entities = [e.strip() for e in linked_section.split(";") if e.strip()]
+            for entity in linked_entities:
+                # Clean up entity names
+                entity = entity.replace("a.k.a.", "").strip()
+                if entity:
+                    related.append(_normalize(entity))
+
+        # Extract subsidiary/branch information
+        if "subsidiary" in remarks.lower() or "branch" in remarks.lower():
+            # Look for parent company mentions
+            pass  # Could be enhanced
+
+        if related:
+            relationships[name] = related
+
+    return relationships
+
+
 def is_sanctioned(entity_name: str, sanctioned_set: set[str]) -> bool:
     """
     Check whether a single entity name appears in the SDN list.

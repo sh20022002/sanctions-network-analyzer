@@ -1,0 +1,133 @@
+{
+  "summary": {
+    "nodes": 10,
+    "edges": 0,
+    "high_risk_count": 10,
+    "shared_officers": 0,
+    "shell_chains": 0
+  },
+  "high_risk_nodes": [
+    {
+      "id": "bank markazi jomhouri islami iran|ir",
+      "label": "BANK MARKAZI JOMHOURI ISLAMI IRAN",
+      "type": "company",
+      "score": 0.0,
+      "flags": [
+        "SANCTIONED_ENTITY"
+      ],
+      "betweenness": 0.0,
+      "pagerank": 0.1,
+      "sanctions_distance": null
+    },
+    {
+      "id": "bank maskan|ir",
+      "label": "BANK MASKAN",
+      "type": "company",
+      "score": 0.0,
+      "flags": [
+        "SANCTIONED_ENTITY"
+      ],
+      "betweenness": 0.0,
+      "pagerank": 0.1,
+      "sanctions_distance": null
+    },
+    {
+      "id": "bank refah kargaran|ir",
+      "label": "BANK REFAH KARGARAN",
+      "type": "company",
+      "score": 0.0,
+      "flags": [
+        "SANCTIONED_ENTITY"
+      ],
+      "betweenness": 0.0,
+      "pagerank": 0.1,
+      "sanctions_distance": null
+    },
+    {
+      "id": "bank keshavarzi iran|ir",
+      "label": "BANK KESHAVARZI IRAN",
+      "type": "company",
+      "score": 0.0,
+      "flags": [
+        "SANCTIONED_ENTITY"
+      ],
+      "betweenness": 0.0,
+      "pagerank": 0.1,
+      "sanctions_distance": null
+    },
+    {
+      "id": "bank saderat plc|ir",
+      "label": "BANK SADERAT PLC",
+      "type": "company",
+      "score": 0.0,
+      "flags": [
+        "SANCTIONED_ENTITY"
+      ],
+      "betweenness": 0.0,
+      "pagerank": 0.1,
+      "sanctions_distance": null
+    },
+    {
+      "id": "aerospace industries organization|ir",
+      "label": "AEROSPACE INDUSTRIES ORGANIZATION",
+      "type": "company",
+      "score": 0.0,
+      "flags": [
+        "SANCTIONED_ENTITY"
+      ],
+      "betweenness": 0.0,
+      "pagerank": 0.1,
+      "sanctions_distance": null
+    },
+    {
+      "id": "defense industries organization|ir",
+      "label": "DEFENSE INDUSTRIES ORGANIZATION",
+      "type": "company",
+      "score": 0.0,
+      "flags": [
+        "SANCTIONED_ENTITY"
+      ],
+      "betweenness": 0.0,
+      "pagerank": 0.1,
+      "sanctions_distance": null
+    },
+    {
+      "id": "bank saderat iran|ir",
+      "label": "BANK SADERAT IRAN",
+      "type": "company",
+      "score": 0.0,
+      "flags": [
+        "SANCTIONED_ENTITY"
+      ],
+      "betweenness": 0.0,
+      "pagerank": 0.1,
+      "sanctions_distance": null
+    },
+    {
+      "id": "islamic revolutionary guard corps|ir",
+      "label": "ISLAMIC REVOLUTIONARY GUARD CORPS",
+      "type": "company",
+      "score": 0.0,
+      "flags": [
+        "SANCTIONED_ENTITY"
+      ],
+      "betweenness": 0.0,
+      "pagerank": 0.1,
+      "sanctions_distance": null
+    },
+    {
+      "id": "ministry of defense and armed forces logistics|ir",
+      "label": "MINISTRY OF DEFENSE AND ARMED FORCES LOGISTICS",
+      "type": "company",
+      "score": 0.0,
+      "flags": [
+        "SANCTIONED_ENTITY"
+      ],
+      "betweenness": 0.0,
+      "pagerank": 0.1,
+      "sanctions_distance": null
+    }
+  ],
+  "shared_officers": {},
+  "shell_chains": []
+}

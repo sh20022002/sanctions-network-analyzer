@@ -133,5 +133,5 @@ def get_high_risk_nodes(
     scored: list[NodeRisk],
     threshold: float = RISK_SCORE_ALERT_THRESHOLD,
 ) -> list[NodeRisk]:
-    """Return only the nodes above the risk threshold."""
-    return [n for n in scored if n.score >= threshold]
+    """Return only the nodes above the risk threshold or that are sanctioned."""
+    return [n for n in scored if n.score >= threshold or "SANCTIONED_ENTITY" in n.flags]

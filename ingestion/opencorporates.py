@@ -123,6 +123,18 @@ def build_profile(company_name: str, jurisdiction: str = "") -> Optional[Company
     Returns:
         CompanyProfile or None if no match was found.
     """
+    if not OPENCORP_TOKEN or OPENCORP_TOKEN == "your_api_token_here":
+        logger.warning("No OpenCorporates API token available. Creating basic profile for: %s", company_name)
+        return CompanyProfile(
+            name=company_name,
+            jurisdiction=jurisdiction or "unknown",
+            company_number="unknown",
+            status="unknown",
+            registered_address=None,
+            incorporation_date=None,
+            officers=[],
+        )
+
     results = search_company(company_name, jurisdiction)
     if not results:
         logger.warning("No OpenCorporates result for: %s", company_name)

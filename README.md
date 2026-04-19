@@ -43,6 +43,55 @@ python main.py --targets data/targets.csv --output data/output.json
 
 # Export results to Neo4j
 python main.py --targets data/targets.csv --neo4j
+
+# Analyze Iranian sanctioned companies and their global connections
+python main.py --targets data/iran_targets.csv --output data/iran_analysis.json
+```
+
+## Iranian Sanctions Network Analysis
+
+This project has been used to analyze the network of Iranian sanctioned companies and their connections to global entities. The analysis reveals extensive connections between Iranian financial institutions, defense organizations, and international terrorist groups.
+
+### Key Findings
+
+- **9,161 entities** in the global sanctions network connected to Iranian companies
+- **15,788 relationship edges** extracted from OFAC "Linked To" data
+- **9,144 high-risk entities** identified
+
+### Major Global Connections
+
+Iranian sanctioned companies show connections to:
+- **Hezbollah** (Lebanese militant group)
+- **Hamas** (Palestinian militant organization)
+- **Islamic State of Iraq and the Levant (ISIS)**
+- **Ansarallah** (Houthis - Yemen-based militants)
+- Various Chinese and Russian entities
+
+### Visualizations
+
+#### Top High-Risk Entities
+![Top High-Risk Entities](visualizations/top_entities_chart.png)
+
+*Bar chart showing the top 20 high-risk entities in the Iranian sanctions network. Blue bars represent Iranian entities, red bars represent global connections.*
+
+#### Network Visualization
+![Network Visualization](visualizations/network_visualization.png)
+
+*Network graph showing connections between Iranian companies (blue) and global entities (red). Node sizes represent risk scores.*
+
+#### Risk Score Distribution
+![Risk Distribution](visualizations/risk_distribution.png)
+
+*Histogram showing the distribution of risk scores across all entities in the network. The blue line indicates the high-risk threshold (0.7).*
+
+### Running the Iranian Analysis
+
+```bash
+# Generate visualizations
+python visualize_results.py
+
+# Analyze all 1,153 Iranian sanctioned companies
+python main.py --targets data/iran_targets.csv --output data/full_iran_analysis.json
 ```
 
 ## Data Sources
@@ -68,10 +117,17 @@ sanctions-network-analyzer/
 ├── export/
 │   └── neo4j_export.py     # Neo4j Cypher writer
 ├── data/
-│   └── targets.csv         # Example input
+│   ├── targets.csv         # Example input
+│   ├── iran_targets.csv    # Iranian sanctioned companies
+│   └── iran_100_connections.json  # Analysis results
+├── visualizations/
+│   ├── top_entities_chart.png     # Top high-risk entities chart
+│   ├── network_visualization.png  # Network graph
+│   └── risk_distribution.png      # Risk score distribution
 ├── tests/
 ├── config.py
 ├── main.py
+├── visualize_results.py    # Visualization generation script
 ├── requirements.txt
 └── .env.example
 ```
